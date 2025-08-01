@@ -10,31 +10,31 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        # Clone into folder 'nodejs-github-runner-app' to avoid nested folders
-        path: nodejs-github-runner-app
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Clone into folder 'nodejs-github-runner-app' to avoid nested folders
+          path: nodejs-github-runner-app
 
-    - name: Debug: List files in workspace
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Files and folders in current directory:"
-        ls -la
-        echo "Files and folders in nodejs-github-runner-app:"
-        ls -la nodejs-github-runner-app || echo "Folder nodejs-github-runner-app not found"
+      - name: Debug: List files in workspace
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files and folders in current directory:"
+          ls -la
+          echo "Files and folders in nodejs-github-runner-app:"
+          ls -la nodejs-github-runner-app || echo "Folder nodejs-github-runner-app not found"
 
-    - name: Kill existing pm2 process
-      run: pm2 delete node-runner-app || true
+      - name: Kill existing pm2 process
+        run: pm2 delete node-runner-app || true
 
-    - name: Install dependencies
-      run: |
-        cd nodejs-github-runner-app
-        npm install
+      - name: Install dependencies
+        run: |
+          cd nodejs-github-runner-app
+          npm install
 
-    - name: Start app with pm2
-      run: |
-        cd nodejs-github-runner-app
-        pm2 start index.js --name node-runner-app
-        pm2 save
+      - name: Start app with pm2
+        run: |
+          cd nodejs-github-runner-app
+          pm2 start index.js --name node-runner-app
+          pm2 save
