@@ -13,19 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Navigate to app directory
-      run: cd nodejs-github-runner-app
-
     - name: Kill existing pm2 process
       run: pm2 delete node-runner-app || true
 
     - name: Install dependencies
       run: |
-        cd nodejs-github-runner-app
+        cd nodejs-github-runner-app/nodejs-github-runner-app
         npm install
 
     - name: Start app with pm2
       run: |
-        cd nodejs-github-runner-app
+        cd nodejs-github-runner-app/nodejs-github-runner-app
         pm2 start index.js --name node-runner-app
         pm2 save
