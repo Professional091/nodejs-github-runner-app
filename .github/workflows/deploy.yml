@@ -13,12 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Debug: List files in workspace
+      - name: Debug - List files in workspace
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Files and folders in current directory:"
+          echo "Current directory: $(pwd)"
+          echo "Files and folders:"
           ls -la
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
 
       - name: Kill existing pm2 process
         run: pm2 delete node-runner-app || true
