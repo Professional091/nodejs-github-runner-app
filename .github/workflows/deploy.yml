@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          # Clone into folder 'nodejs-github-runner-app' to avoid nested folders
-          path: nodejs-github-runner-app
 
       - name: Debug: List files in workspace
         run: |
@@ -22,8 +19,6 @@ jobs:
           pwd
           echo "Files and folders in current directory:"
           ls -la
-          echo "Files and folders in nodejs-github-runner-app:"
-          ls -la nodejs-github-runner-app || echo "Folder nodejs-github-runner-app not found"
 
       - name: Kill existing pm2 process
         run: pm2 delete node-runner-app || true
