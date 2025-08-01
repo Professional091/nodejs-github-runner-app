@@ -1,12 +1,43 @@
 const express = require('express');
-const app = express();
-const PORT = 3000;
+const os = require('os');
 
-app.get('/', (req, res) => {
-  res.send('🎉 Live Node.js App using GitHub Self-Hosted Runner!');
+const app = express();
+const port = 3000;
+
+// Middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
 });
 
-// Change here: listen on 0.0.0.0, not localhost
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`App listening at http://0.0.0.0:${PORT}`);
+// Homepage route
+app.get('/', (req, res) => {
+  res.send(`
+    <h1>Welcome to My Node.js App!</h1>
+    <p>Use <code>/status</code> to check server info.</p>
+  `);
+});
+
+// Status route
+app.get('/status', (req, res) => {
+  res.json({
+    status: '🟢 Running',
+    uptime: process.uptime().toFixed(2) + ' sec',
+    hostname: os.hostname(),
+    platform: os.platform(),
+    memory: {
+      free: (os.freemem() / 1024 / 1024).toFixed(2) + ' MB',
+      total: (os.totalmem() / 1024 / 1024).toFixed(2) + ' MB'
+    },
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).send('<h2>404 Not Found</h2>');
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://0.0.0.0:${port}`);
 });
