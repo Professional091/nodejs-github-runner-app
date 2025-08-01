@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send(`
     <h1>Welcome to My Node.js App!</h1>
-    <p>Use <code>/status</code> to check server info. but not running</p>
+    <p>Use <code>/status</code> to check server info.</p>
   `);
 });
 
