@@ -1,32 +1,32 @@
-name CICD Deploy to Self-Hosted Runner with PM2
+name: CI/CD Deploy to Self-Hosted Runner with PM2
 
-on
-  push
-    branches
+on:
+  push:
+    branches:
       - main
 
-jobs
-  deploy
-    runs-on self-hosted
+jobs:
+  deploy:
+    runs-on: self-hosted
 
-    steps
-      - name Checkout code
-        uses actionscheckout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name Debug List files in workspace
-        run 
-          echo Current directory
+      - name: Debug: List files in workspace
+        run: |
+          echo "Current directory:"
           pwd
-          echo Files and folders in current directory
+          echo "Files and folders in current directory:"
           ls -la
 
-      - name Kill existing pm2 process
-        run pm2 delete node-runner-app  true
+      - name: Kill existing pm2 process
+        run: pm2 delete node-runner-app || true
 
-      - name Install dependencies
-        run npm install
+      - name: Install dependencies
+        run: npm install
 
-      - name Start app with pm2
-        run 
+      - name: Start app with pm2
+        run: |
           pm2 start index.js --name node-runner-app
           pm2 save
