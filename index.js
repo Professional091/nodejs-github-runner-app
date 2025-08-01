@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 // Homepage route
 app.get('/', (req, res) => {
   res.send(`
-    <h1>Welcome to My Node.js App!</h1>
+    <h1>Welcome to My Node.js App! afsgdhtfjygukh</h1>
     <p>Use <code>/status</code> to check server info.</p>
   `);
 });
